@@ -20,15 +20,20 @@ Esto genera exclusión, dificultades para la comprensión, menor participación 
 
 ## Objetivo general
 
-Desarrollar una herramienta multiplataforma que facilite la inclusión comunicativa entre personas con diversidad auditiva y oyentes, promoviendo ambientes educativos y laborales más accesibles, equitativos e inclusivos en Cali.
+Desarrollar un asistente virtual basado en inteligencia artificial para el reconocimiento de gestos y lenguaje de señas, con el fin de facilitar la inclusión comunicativa entre personas con diversidad auditiva y oyentes en entornos educativos y laborales en la ciudad de Cali. 
 
 ## Objetivos específicos
 
-- Diseñar una solución tecnológica adaptable a diferentes dispositivos y entornos.
-- Facilitar la comunicación entre personas sordas y oyentes mediante apoyo visual y de transcripción.
-- Promover la accesibilidad en procesos educativos y laborales.
-- Generar una propuesta tecnológica útil, escalable y con enfoque en la inclusión social.
-- Evaluar la viabilidad y pertinencia de la herramienta en contextos reales de la ciudad de Cali.
+1. **Identificar** las necesidades comunicativas y tecnológicas presentes en entornos educativos y laborales donde interactúan personas con diversidad auditiva y oyentes.
+
+2. **Diseñar** la arquitectura lógica y el flujo de datos del sistema, definiendo las redes neuronales y las interfaces de usuario que garanticen una interpretación fluida y precisa de la lengua de señas en los contextos seleccionados.
+
+3. **Desarrollar** los módulos de captura, preprocesamiento, reconocimiento gestual y traducción bidireccional (señas→texto/voz y voz/texto→señas) mediante la arquitectura MediaPipe + CNN sobre TensorFlow/Keras y FastAPI, integrándolos en un sistema multiplataforma funcional.
+
+4. **Implementar** el prototipo integrado en los escenarios seleccionados, preparando su funcionamiento y despliegue para las pruebas piloto.
+
+5. **Evaluar** la usabilidad, eficacia y desempeño de la herramienta mediante pruebas piloto en los contextos seleccionados, utilizando métricas definidas para validar el funcionamiento del prototipo y su aporte potencial a la inclusión comunicativa.
+
 
 ## Propuesta de valor
 
