@@ -59,65 +59,27 @@ Aunque el alcance final puede ajustarse durante el desarrollo del proyecto, la h
 - Mejora de la inclusión en espacios educativos y laborales.
 - Promoción de entornos más accesibles, colaborativos y justos.
 
-## Tecnologías sugeridas
-
-El proyecto puede desarrollarse con tecnologías modernas y escalables, por ejemplo:
-
-- Frontend: HTML, CSS, JavaScript, React o frameworks similares.
-- Backend: Node.js, Python, Java o tecnologías compatibles con la lógica del sistema.
-- Base de datos: PostgreSQL o MySQL.
-- APIs y servicios de accesibilidad: reconocimiento de voz, transcripción, servicios de traducción o integración de interfaces accesibles.
-- Despliegue: Web, móvil o desktop según la arquitectura definida.
-
-## Estructura del repositorio
+## Estructura actual del repositorio
 
 ```text
 Copilito-Para-La-Inclusion/
 ├── README.md
 ├── docs/
-├── src/
-├── public/
-├── tests/
-├── package.json
-├── .gitignore
+├── backend/
 └── ...
 ```
 
-## Cómo ejecutar el proyecto
-
-1. Clonar el repositorio.
-2. Instalar dependencias.
-3. Configurar variables de entorno necesarias.
-4. Ejecutar la aplicación localmente.
-5. Validar el flujo principal según la arquitectura del proyecto.
-
-Ejemplo:
-
-```bash
-git clone https://github.com/Jupamohi/Copilito-Para-La-Inclusion.git
-cd Copilito-Para-La-Inclusion
-npm install
-npm run dev
-```
 
 > Nota: los comandos exactos pueden variar según la tecnología elegida para la implementación final.
 
 ## Estado del proyecto
 
-Este repositorio corresponde al proyecto de grado desarrollado con enfoque en accesibilidad, inclusión y comunicación efectiva dentro del contexto educativo y laboral de Cali.
+Este repositorio corresponde al proyecto de grado desarrollado con enfoque en accesibilidad, inclusión y comunicación efectiva dentro del contexto educativo y laboral de Cali, y está actualmente en desarrollo.
 
 ## Contribución
 
 Este proyecto puede ser ampliado y mejorado en futuras etapas mediante investigación, pruebas de uso, validación con usuarios y ajustes funcionales orientados a la accesibilidad real.
 
-## Licencia
 
-El proyecto puede definirse bajo una licencia apropiada según la política institucional o académica. Se recomienda revisar este punto antes de publicarlo de manera formal.
-
-## Autoría
-
-Proyecto de grado desarrollado para la promoción de la inclusión comunicativa y la accesibilidad en contextos educativos y laborales.
-
----
 
 Este repositorio está orientado a brindar una propuesta tecnológica útil, socialmente relevante y alineada con los objetivos de inclusión de la comunidad con diversidad auditiva en Cali.
