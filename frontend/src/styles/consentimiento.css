@@ -1,0 +1,13 @@
+.pantalla-consentimiento {background:var(--color-fondo);position:relative;isolation:isolate;padding:12px clamp(14px,5vw,80px) 44px;color:#162c25}
+.pantalla-consentimiento .panel {max-width:1100px;margin:auto;border:0;border-radius:clamp(22px,3vw,42px);background:#fffcf8;padding:clamp(22px,3.6vw,56px);box-shadow:0 14px 38px #44372824}
+.pantalla-consentimiento h1 {font:700 clamp(2.1rem,4.1vw,4rem)/1.06 Georgia,serif;letter-spacing:-.04em;text-wrap:balance}
+.intro-consentimiento {font-size:clamp(1rem,1.45vw,1.3rem);max-width:76ch}
+.datos-consentimiento {position:relative;display:grid;gap:10px;margin-top:44px}
+.datos-consentimiento::before {content:"";position:absolute;right:2%;bottom:calc(100% - 6px);width:clamp(62px,8vw,106px);height:60px;background:url('/marca/gato-banda.png') center bottom/contain no-repeat;pointer-events:none}
+.datos-consentimiento p {display:flex;align-items:center;gap:clamp(12px,2vw,28px);padding:12px clamp(12px,2vw,28px);border-radius:19px;background:#f3efea;line-height:1.45}
+.datos-consentimiento p:first-child {background:linear-gradient(110deg,#e9eee3,#dae5d5)}
+.datos-consentimiento svg {flex:none;width:46px;height:46px;padding:9px;border-radius:14px;color:#104c37;background:linear-gradient(#f5f6eb,#d8e4cf)}
+.pantalla-consentimiento .casilla {width:22px;height:22px}
+.pantalla-consentimiento .boton {justify-content:center;border-radius:30px;padding:10px 32px}
+.pantalla-consentimiento .boton:disabled {color:#fff;background:#476452;border-color:#476452}
+@media(max-width:600px){.datos-consentimiento {margin-top:56px}.pantalla-consentimiento .boton {width:100%}}

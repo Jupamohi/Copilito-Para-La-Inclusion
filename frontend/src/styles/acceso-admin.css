@@ -1,0 +1,17 @@
+main.contenedor:has(.acceso-admin) {position:relative;isolation:isolate;overflow:hidden;max-width:none;padding:clamp(30px,5vw,76px) 5%;background:linear-gradient(#faf7f3 78%,var(--color-fondo))}
+main:has(.acceso-admin)::before {content:"";position:absolute;z-index:-1;top:-140px;left:-110px;width:370px;height:230px;border-radius:48% 35% 68% 25%;transform:rotate(-24deg);background:#ccddd2;box-shadow:38px 12px 0 #e5ebe1}
+.acceso-admin {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(26px,4vw,70px);max-width:1240px;margin:auto;color:#12362d}
+.presentacion-admin img {width:100%;height:auto}
+.lema-admin {font:700 clamp(2.1rem,3.8vw,3.8rem)/1.07 Georgia,serif;letter-spacing:-.04em;margin:16px 0 8px}
+.acceso-admin .panel {min-width:0;background:#fffdfb;border:1px solid #dfdfd8;border-radius:30px;padding:clamp(22px,3.2vw,48px);box-shadow:0 14px 38px #323e3214}
+.acceso-admin h1 {font-size:clamp(1.65rem,2.65vw,2.5rem);line-height:1.14;letter-spacing:-.035em}
+.entrada-admin label {display:block;margin-bottom:6px;font-weight:650}
+.control-admin {position:relative;display:flex;align-items:center}
+.control-admin svg {width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.control-admin>svg {position:absolute;left:14px;pointer-events:none}
+.control-admin .campo {padding:12px 46px;border-radius:13px;background:#f7f7f2;border-color:#84958c}
+.ver-clave {position:absolute;right:2px;display:grid;place-items:center;width:44px;height:44px;cursor:pointer}
+.acceso-admin .boton {width:100%;justify-content:center;border-radius:50px;background:#084d3b;color:white}
+.acceso-admin .boton:disabled {background:#466451}
+.acceso-admin .panel>a {display:block;border-top:1px solid #d6ded7;padding-top:20px;text-align:center}
+@media(max-width:740px){.acceso-admin {grid-template-columns:1fr;max-width:510px}.presentacion-admin {text-align:center}.presentacion-admin img {max-width:210px;margin:auto}.lema-admin {font-size:2rem}}

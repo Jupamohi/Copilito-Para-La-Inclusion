@@ -1,0 +1,68 @@
+#root {min-height:100vh;display:flex;flex-direction:column}
+#contenido {flex:1}
+.ancho {width:min(1160px,92%);margin-inline:auto}
+.barra {background:#fff;color:#0b3329;border-bottom:1px solid #deebe4}
+.fila,.barra nav,.acciones {display:flex;align-items:center;gap:clamp(12px,3vw,42px);flex-wrap:wrap}
+.fila {justify-content:space-between;padding-block:12px}
+.marca {width:92px;height:auto}
+.barra a,.pie a {text-decoration:none}
+.barra a:hover,.pie a:hover {text-decoration:underline}
+.accion {display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:9px 22px;border-radius:100px;background:#09513c;color:white;text-decoration:none;font-weight:650}
+.accion:hover {background:#073829;color:white}
+.suave {background:white;border:1px solid #186346;color:#103c30}
+.inicio {background:radial-gradient(ellipse at 95% 18%,#dcefe5,transparent 36%),linear-gradient(to bottom,#fff 55%,var(--color-fondo) 94%)}
+.portada {padding-block:clamp(28px,4vw,60px) 80px;color:#102e25}
+.hero,.nosotros,.tarjetas,.banda,.pie-columnas {display:grid;align-items:center;gap:clamp(18px,3vw,40px)}
+.hero {grid-template-columns:1fr 1fr}
+.portada h1,.portada h2 {font-family:Georgia,serif;font-weight:700;line-height:1.02;letter-spacing:-.045em}
+.portada h1 {font-size:clamp(2.7rem,6.4vw,5.7rem)}
+.portada h2 {font-size:clamp(2rem,3.6vw,3.3rem)}
+.hero p,.nosotros p {margin:1rem 0;max-width:52ch}
+.hero img,.nosotros img {width:100%;border:4px solid white;border-radius:2.5rem;box-shadow:0 12px 30px #0e473424}
+.banda,.tarjetas,.pie-columnas {grid-template-columns:repeat(3,minmax(0,1fr))}
+.banda,.tarjetas article {background:white;border:1px solid #dce9e1;box-shadow:0 8px 24px #113a2310}
+.banda {margin-block:36px 56px;text-align:center;border-radius:36px;padding:20px;font-weight:650}
+.banda li+li {border-left:1px solid #b5d0c0}
+.nosotros {grid-template-columns:1fr 1fr .65fr;margin-bottom:64px}
+.nosotros aside {border-left:1px solid #cddfd3;padding-left:20px}
+.nosotros aside p {margin:.15rem 0 1rem}
+.etiqueta,.tarjetas span {display:inline-block;background:#d8efe1;border-radius:20px;padding:3px 12px;margin-bottom:12px;color:#16503b;font-weight:650}
+.tarjetas {align-items:stretch;margin-top:22px}
+.tarjetas article {padding:24px;border-radius:24px}
+.tarjetas h3 {font-weight:700;font-size:1.18rem;margin-bottom:8px}
+.pie {background:linear-gradient(125deg,#175b48,#072e25);color:white;border-radius:50% 10% 0 0 / 22px 10px 0 0;padding:48px 0 20px}
+.pie-columnas {align-items:start}
+.pie nav {display:grid;gap:6px}
+.pie a {color:white}
+.pie .marca {filter:brightness(0) invert(1);margin-bottom:8px}
+.pie small {display:block;margin-top:26px;border-top:1px solid #85a79b;padding-top:14px}
+@media(max-width:720px){
+  .hero,.nosotros,.tarjetas,.pie-columnas {grid-template-columns:1fr}
+  .barra nav {order:3;width:100%;justify-content:center}
+  .banda {grid-template-columns:1fr;border-radius:20px;gap:8px}
+  .banda li+li {border:0}
+  .nosotros {margin-bottom:38px}
+}
+.banda,.tarjetas,.pie {position:relative}
+.banda::after,.tarjetas::before {content:"";position:absolute;background:center bottom/contain no-repeat;pointer-events:none;z-index:1}
+.banda::after {right:1%;bottom:98%;width:10%;aspect-ratio:112/67;background-image:url('/marca/gato-banda.png')}
+.tarjetas::before {right:3%;bottom:98%;width:10%;aspect-ratio:110/70;background-image:url('/marca/gato-tarjetas.png')}
+.pie {margin-top:0;border-radius:0;background:linear-gradient(120deg,#184d3d,#08372b);padding-top:28px}
+
+.portada {padding-bottom:30px}
+.banda li {display:flex;align-items:center;justify-content:center;gap:12px}
+.tarjetas article {position:relative;padding-bottom:54px}
+.icono-portada {box-sizing:border-box;display:block;width:46px;height:46px;flex:none;padding:10px;border-radius:14px;color:#104b39;background:linear-gradient(135deg,#e2f5e7,#bce6d3)}
+.tarjetas .icono-portada {float:left;width:52px;height:52px;margin:0 14px 14px 0}
+.flecha {position:absolute;right:18px;bottom:12px;border-radius:50%;background:#09513c;color:white;text-decoration:none;padding:3px 10px}
+#funciones>p {margin:8px 0 32px}
+.etiqueta {background:#f4e8cd}
+@media(max-width:720px){.banda::after,.tarjetas::before {width:68px}.banda {margin-top:50px}.tarjetas {margin-top:44px}.banda li {justify-content:flex-start}.barra nav {gap:12px}}
+.pie {--alto-ondas:clamp(88px,10vw,148px);--verde-onda:#164b3b;padding-top:0;background:linear-gradient(to bottom,var(--verde-onda) calc(var(--alto-ondas) + 2px),#08372b 100%)}
+.ondas {height:var(--alto-ondas);position:relative;background:var(--color-fondo);overflow:hidden}
+.ondas svg {position:absolute;inset:0;width:100%;height:100%;display:block}
+.ondas img {position:absolute;left:16%;bottom:25%;width:clamp(42px,6vw,80px);height:auto}
+.onda-frontal path {fill:var(--verde-onda)}
+.onda-frontal {filter:drop-shadow(0 -3px 5px rgb(9 66 46 / 20%))}
+.pie>.ancho {padding-top:20px}
+.nosotros {position:relative}
