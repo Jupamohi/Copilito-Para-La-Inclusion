@@ -21,6 +21,7 @@ export async function iniciarGrabacion(
   signal: AbortSignal,
   entregar: (audio: Blob) => void,
   alFallar: (error: ErrorGrabacion) => void,
+  alAbrirMicrofono?: (nombre: string) => void,
 ) {
   const media = navigator.mediaDevices;
   if (!media?.getUserMedia || typeof MediaRecorder !== 'function') {
@@ -114,6 +115,7 @@ export async function iniciarGrabacion(
   signal.addEventListener('abort', cerrar, { once: true });
   try {
     grabador.start();
+    alAbrirMicrofono?.(medio.getAudioTracks()[0]?.label || 'Nombre no disponible');
   } catch {
     cerrar();
     throw new ErrorGrabacion('grabacionFallida');

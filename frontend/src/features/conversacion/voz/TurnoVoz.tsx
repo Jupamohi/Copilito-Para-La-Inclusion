@@ -6,7 +6,7 @@ import { useTurnoVoz } from './useTurnoVoz';
 const contenido = textos.voz;
 
 export function TurnoVoz({ sessionId }: { sessionId: string }) {
-  const { estado, hablar, detener, confirmar, repetir } =
+  const { estado, nombreMicrofono, hablar, detener, confirmar, repetir } =
     useTurnoVoz(sessionId);
   const botonDetener = useRef<HTMLButtonElement>(null);
   const revision = useRef<HTMLHeadingElement>(null);
@@ -32,6 +32,7 @@ export function TurnoVoz({ sessionId }: { sessionId: string }) {
           {contenido.grabacion}
         </h2>
         <p>{contenido.instrucciones}</p>
+        {estado.fase === 'grabando' && <p>Micrófono en uso: {nombreMicrofono}</p>}
         <div role="status" aria-atomic="true" className="aviso">
           <span aria-hidden="true">
             {estado.fase === 'grabando' ? '●' : '🎙️'}

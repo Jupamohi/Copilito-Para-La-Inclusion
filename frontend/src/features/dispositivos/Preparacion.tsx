@@ -26,7 +26,7 @@ export function Preparacion() {
   const {
     video,
     estado: camara,
-    dispositivos,
+    dispositivos, nombreCamara, microfonoPrevisto,
     seleccion,
     abrir,
   } = useCamara(estado.camaraId);
@@ -95,11 +95,25 @@ export function Preparacion() {
       <p className="privacidad-video"><Icono tipo="candado" />{textos.privacidadManos}</p></section>
       <section><h2>Comprobación de dispositivos</h2>
         <dl className="comprobaciones">
-          <div className={falloCamara ? 'fallo' : ''}><dt><Icono tipo="camara" />Cámara</dt><dd>{mostrarVideo ? 'Activa' : camara.fase === 'denegada' ? 'Permiso bloqueado' : falloCamara ? 'Vista no disponible' : 'Esperando permiso'}</dd></div>
-          <div><dt><Icono tipo="microfono" />Micrófono</dt><dd>Se solicitará en el turno de voz</dd></div>
+          <div className={falloCamara ? 'fallo' : ''}><dt><Icono tipo="camara" />Cámara</dt><dd>{mostrarVideo ? (nombreCamara || dispositivos.find((d) => d.deviceId === seleccion)?.label || 'Activa · nombre no disponible') : camara.fase === 'denegada' ? 'Permiso bloqueado' : falloCamara ? 'Vista no disponible' : 'Esperando permiso'}</dd></div>
+          <div><dt><Icono tipo="microfono" />Micrófono</dt><dd>{microfonoPrevisto || 'Micrófono predeterminado del dispositivo'}<br />Se solicitará en el turno de voz</dd></div>
           <div><dt><Icono tipo="manos" />Detección de manos</dt><dd>{evaluada ? (camara.manos ? 'Manos visibles' : 'Buscando manos') : camara.fase === 'detectorNoDisponible' ? 'Detector no disponible' : mostrarVideo ? 'Preparando detector' : 'Esperando cámara'}</dd></div>
-        </dl></section></div>
-      <AvisoCamara camara={camara} />
+        </dl>
+        <div className="mt-3"><AvisoCamara camara={camara} /></div>
+        <button
+          type="button"
+          className="boton iniciar-conversacion"
+          disabled={!puedeIniciar || cargando}
+          onClick={iniciarSesion}
+        >
+          <Icono tipo="charla" />{cargando
+            ? contenido.iniciandoSesion
+            : estado.sesion
+              ? contenido.volverSesion
+              : contenido.iniciarSesion}
+        </button>
+      </section></div>
+
       {error && (
         <p className="aviso aviso-error" role="alert">
           {error}
@@ -118,18 +132,6 @@ export function Preparacion() {
             {contenido.reintentar}
           </button>
         )}
-        <button
-          type="button"
-          className="boton"
-          disabled={!puedeIniciar || cargando}
-          onClick={iniciarSesion}
-        >
-          <Icono tipo="charla" />{cargando
-            ? contenido.iniciandoSesion
-            : estado.sesion
-              ? contenido.volverSesion
-              : contenido.iniciarSesion}
-        </button>
         <Link to="/">{textos.inicio}</Link>
       </div>
       <p role="status" className="sr-only">

@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { ErrorApi } from '../../../api/errores';
 import { useEstado } from '../../../app/estado';
 import { textos } from '../../../i18n/textos';
@@ -10,6 +10,7 @@ const contenido = textos.voz;
 export function useTurnoVoz(sessionId: string) {
   const { api, dispatch } = useEstado();
   const [estado, cambiar] = useReducer(reducirVoz, inicialVoz);
+  const [nombreMicrofono, setNombreMicrofono] = useState('');
   const operacion = useRef<AbortController | null>(null);
   const detenerGrabacion = useRef<(() => void) | null>(null);
 
@@ -81,6 +82,7 @@ export function useTurnoVoz(sessionId: string) {
           detenerGrabacion.current = null;
           fallar(error, control);
         },
+        setNombreMicrofono,
       );
       if (!control.signal.aborted) {
         detenerGrabacion.current = detener;
@@ -133,6 +135,7 @@ export function useTurnoVoz(sessionId: string) {
   }
 
   return {
+    nombreMicrofono,
     estado,
     hablar,
     detener,

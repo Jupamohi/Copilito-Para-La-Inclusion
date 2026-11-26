@@ -37,6 +37,8 @@ export function useCamara(
     intento: 0,
   });
   const [dispositivos, setDispositivos] = useState<MediaDeviceInfo[]>([]);
+  const [nombreCamara, setNombreCamara] = useState('');
+  const [microfonoPrevisto, setMicrofonoPrevisto] = useState('');
   const [dispositivoActivo, setDispositivoActivo] = useState<string | null>(
     null,
   );
@@ -105,6 +107,7 @@ export function useCamara(
           return;
         }
         pista.addEventListener('ended', alPerderCamara);
+        setNombreCamara(pista.label);
         setDispositivoActivo(
           pista.getSettings().deviceId ?? solicitud.dispositivo,
         );
@@ -114,6 +117,8 @@ export function useCamara(
           .enumerateDevices()
           .then((registrados) => {
             if (activo && medio === captura) {
+              const entradas = registrados.filter((d) => d.kind === 'audioinput');
+              setMicrofonoPrevisto((entradas.find((d) => d.deviceId === 'default') ?? entradas[0])?.label ?? '');
               setDispositivos(
                 registrados.filter(
                   (dispositivo) => dispositivo.kind === 'videoinput',
@@ -179,5 +184,5 @@ export function useCamara(
     solicitud.dispositivo ??
     dispositivos[0]?.deviceId ??
     '';
-  return { video, estado, dispositivos, seleccion, abrir };
+  return { video, estado, dispositivos, seleccion, abrir, nombreCamara, microfonoPrevisto };
 }
