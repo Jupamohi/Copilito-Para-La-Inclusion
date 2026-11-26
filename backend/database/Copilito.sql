@@ -977,3 +977,4 @@ GRANT SELECT,USAGE ON SEQUENCE public.version_modelo_id_version_seq TO lsc_app;
 
 \unrestrict gdRyW9qLPvDQzfx2hatl38AHUD816E6oNAbdR6dyl1ulMXIFXiUTk0qYSAcUfDE
 
+/* xd */
