@@ -1,3 +1,4 @@
+import { EnlacePrivacidadAcceso } from './EnlacePrivacidadAcceso';
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import '../styles/portada.css';
@@ -30,7 +31,7 @@ export function Pie() {
     </div><div className="ancho">
     <div className="pie-columnas"><div><Marca /><p>Comunicación sin barreras</p></div>
     <nav aria-label="Enlaces del pie"><strong>Explorar</strong><Link to="/">Inicio</Link><Link to="/#funciones">Cómo funciona</Link><Link to="/consentimiento">Traductor</Link></nav>
-    <nav aria-label="Recursos del pie"><strong>Privacidad y acceso</strong><Link to="/consentimiento">Información de consentimiento</Link><Link to="/retirar-consentimiento">Retirar mi autorización</Link><Link to="/admin/login">Área administrativa</Link></nav></div>
+    <nav aria-label="Recursos del pie"><strong>Privacidad y acceso</strong><Link to="/consentimiento">Información de consentimiento</Link><EnlacePrivacidadAcceso tipo="retirar">Retirar mi autorización</EnlacePrivacidadAcceso><EnlacePrivacidadAcceso tipo="administrador">Área administrativa</EnlacePrivacidadAcceso></nav></div>
     <small>© Copiloto · Cali, Colombia</small>
   </div></footer>;
 }

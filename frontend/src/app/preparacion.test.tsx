@@ -189,7 +189,7 @@ it('recupera una cámara denegada y abre sesión después de verificar luz y man
   expect(iniciar.disabled).toBe(false);
   fireEvent.click(iniciar);
   await screen.findByRole('heading', { name: textos.conversacion });
-  expect(primera.pista.stop).toHaveBeenCalledTimes(1);
+  await waitFor(() => expect(primera.pista.stop).toHaveBeenCalledTimes(1));
   expect(detenerDetector).toHaveBeenCalledTimes(1);
 });
 

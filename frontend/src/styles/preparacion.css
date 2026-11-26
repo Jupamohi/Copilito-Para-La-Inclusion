@@ -1,0 +1,58 @@
+main.contenedor:has(.preparar){max-width:none;padding:clamp(16px,2.5vw,38px) 4% 12px;background:radial-gradient(ellipse at top,#e2f0e9,transparent 75%),var(--color-fondo)}
+.preparar{max-width:1190px;margin:auto;color:#15362d}
+.preparar .panel{display:flex;flex-direction:column;gap:16px;padding:clamp(18px,2.8vw,44px);background:#fffcf8;border:0;border-radius:clamp(22px,3vw,42px);box-shadow:0 14px 36px #21473619}
+.preparar .panel>*{margin-block:0}
+.preparar h1{font:700 clamp(2rem,3.6vw,3.7rem)/1.06 Georgia,serif;letter-spacing:-.04em;max-width:72%}
+.preparar svg{width:22px;height:22px;flex:none}
+.intro-dispositivos{position:relative;min-height:42px;padding-right:26%}
+.intro-dispositivos img{position:absolute;bottom:-15px;right:1%;width:22%;max-height:118px;object-fit:contain;object-position:bottom}
+.paneles-dispositivo{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(230px,1fr);align-items:start;gap:18px}
+.paneles-dispositivo section{min-width:0;padding:16px;border:1px solid #ced9d3;background:#fff;border-radius:20px}
+.preparar h2{font-weight:700;font-size:1.18rem;margin-bottom:12px}
+.paneles-dispositivo .vista-camara,.camara-inactiva{width:100%;aspect-ratio:4/3}
+.paneles-dispositivo .vista-camara{object-fit:contain}
+.camara-inactiva{display:grid;place-content:center;justify-items:center;gap:14px;background:linear-gradient(140deg,#172f2a,#29453c);border-radius:14px;color:white;text-align:center}
+.camara-inactiva svg{width:44px;height:44px}
+.privacidad-video{justify-content:center;padding:8px;background:#e5f2e7;border-radius:12px;font-size:.9rem}
+.comprobaciones{display:grid;gap:6px}
+.comprobaciones>div{padding:8px 12px;border-radius:12px;border:1px solid #d3ded6;background:#f8faf8}
+.comprobaciones dt{font-weight:700}.comprobaciones dd{margin-left:31px;font-size:.9rem}
+.comprobaciones .fallo{background:#ffeded;color:#822829}
+.preparar .aviso-error{background:#fff2dd;color:#633d10;border-color:#c79449}
+.acciones-dispositivo{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;border-top:1px solid #c7d7cd;padding-top:16px}
+.acciones-dispositivo button{flex:1;justify-content:center;gap:10px;border-radius:32px}
+.acciones-dispositivo a{flex-basis:100%;text-align:center}
+@media(max-width:700px){.paneles-dispositivo{grid-template-columns:1fr}.intro-dispositivos img{max-height:85px}.acciones-dispositivo button{flex-basis:100%}}
+
+.preparar h2,.privacidad-video,.comprobaciones dt {display:flex;gap:9px;align-items:center}
+.pasos-dispositivo {
+  --separacion:clamp(10px,1.15vw,18px);
+  order:-1;display:grid;align-items:center;justify-content:center;
+  grid-template-columns:auto minmax(28px,72px) auto minmax(28px,72px) auto;
+  column-gap:var(--separacion);list-style:none;padding:0;font-weight:600;
+}
+.pasos-dispositivo::before,.pasos-dispositivo::after {
+  content:"";height:1px;background:#296c58;grid-row:1;
+}
+.pasos-dispositivo::before {grid-column:2}
+.pasos-dispositivo::after {grid-column:4}
+.pasos-dispositivo li {grid-row:1;display:flex;align-items:center;justify-content:center;gap:12px;line-height:1.25}
+.pasos-dispositivo li:first-child {grid-column:1;color:#087548}
+.pasos-dispositivo li:first-child svg {
+  width:32px;height:32px;padding:7px;border-radius:50%;color:white;
+  background:linear-gradient(145deg,#12a867,#168159);stroke-width:2.7;
+}
+.pasos-dispositivo li[aria-current] {
+  grid-column:3;min-height:46px;padding:9px 20px;border-radius:30px;border:1px solid #a6ddc3;
+  background:linear-gradient(110deg,#e5f4e9,#d4ecdd);color:#075539;font-weight:700;
+}
+.pasos-dispositivo li[aria-current] svg {width:26px;height:26px;fill:#19975e;stroke:#19975e}
+.pasos-dispositivo li:last-child {grid-column:5;color:#505e62;font-weight:500}
+.pasos-dispositivo li:last-child svg {width:26px;height:26px;color:#687779;stroke-width:2.2}
+@media(max-width:700px) {
+  .pasos-dispositivo {grid-template-columns:minmax(0,1fr) minmax(6px,18px) minmax(0,1fr) minmax(6px,18px) minmax(0,1fr);column-gap:3px}
+  .pasos-dispositivo li {flex-direction:column;gap:5px;text-align:center;font-size:.78rem;overflow-wrap:anywhere}
+  .pasos-dispositivo li[aria-current] {padding:6px 2px;border-radius:16px}
+  .pasos-dispositivo li:first-child svg,.pasos-dispositivo li:last-child svg,.pasos-dispositivo li[aria-current] svg {width:23px;height:23px}
+  .pasos-dispositivo li:first-child svg {padding:4px}
+}

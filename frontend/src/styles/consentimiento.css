@@ -11,3 +11,17 @@
 .pantalla-consentimiento .boton {justify-content:center;border-radius:30px;padding:10px 32px}
 .pantalla-consentimiento .boton:disabled {color:#fff;background:#476452;border-color:#476452}
 @media(max-width:600px){.datos-consentimiento {margin-top:56px}.pantalla-consentimiento .boton {width:100%}}
+.registro {display:grid;gap:clamp(18px,2vw,28px)}
+.registro svg {width:24px;height:24px;flex:none}
+.registro h2,.registro .boton {display:inline-flex;align-items:center;justify-self:start;gap:12px}
+.registro h2 {background:linear-gradient(100deg,#eff7ef,#d7eee4);color:#104f3b;border-radius:30px;padding:9px 22px;font-weight:700}
+.registro h2 svg {background:#217751;border-radius:50%;color:white;padding:4px}
+.registro-nombre,.registro-id {display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:15px}
+.registro-nombre>svg,.registro-id>svg {box-sizing:content-box;background:#e0eee5;color:#075949;padding:9px;border-radius:10px}
+.registro label {display:block;font-weight:700;margin-bottom:6px}
+.registro small {display:block;margin-top:6px;color:#415952;font-style:italic}
+.registro-id {grid-template-columns:auto minmax(0,1fr) auto;align-items:center;background:linear-gradient(110deg,#eef4ed,#f4f8f6);border:1px solid #829990;border-radius:12px;padding:clamp(12px,2vw,24px)}
+.registro-id strong {font-size:1.5rem;overflow-wrap:anywhere}
+.registro-id button {display:grid;place-items:center;width:46px;height:44px;border:1px solid #829990;border-radius:10px;background:white;color:#075949;cursor:pointer}
+.registro .boton {background:linear-gradient(110deg,#096447,#084337)}
+@media(max-width:520px){.registro-id {grid-template-columns:minmax(0,1fr) auto}.registro-id>svg {display:none}.registro-nombre {gap:8px}.registro .boton {justify-content:center}}
