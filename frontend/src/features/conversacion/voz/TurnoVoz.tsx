@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Avatar3D } from '../../../components/avatar/Avatar3D';
 import { textos } from '../../../i18n/textos';
+import { IconoConversacion as Icono } from '../IconoConversacion';
 import { useTurnoVoz } from './useTurnoVoz';
 
 const contenido = textos.voz;
@@ -26,17 +27,20 @@ export function TurnoVoz({ sessionId }: { sessionId: string }) {
   }, [estado.fase]);
 
   return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
-      <section aria-labelledby="titulo-grabacion" className="space-y-4">
+    <div className="sala-paneles">
+      <section
+        aria-labelledby="titulo-grabacion"
+        className="sala-tarjeta sala-grabacion"
+      >
         <h2 className="text-xl font-semibold" id="titulo-grabacion">
-          {contenido.grabacion}
+          <Icono nombre="micro" /> {contenido.grabacion}
         </h2>
         <p>{contenido.instrucciones}</p>
-        {estado.fase === 'grabando' && <p>Micrófono en uso: {nombreMicrofono}</p>}
+        {estado.fase === 'grabando' && (
+          <p>Micrófono en uso: {nombreMicrofono}</p>
+        )}
         <div role="status" aria-atomic="true" className="aviso">
-          <span aria-hidden="true">
-            {estado.fase === 'grabando' ? '●' : '🎙️'}
-          </span>{' '}
+          <Icono nombre="micro" />
           {contenido.estados[estado.fase]}
         </div>
         <div className="flex flex-wrap gap-2">
@@ -100,12 +104,26 @@ export function TurnoVoz({ sessionId }: { sessionId: string }) {
           </div>
         )}
       </section>
-      {estado.fase === 'traducida' && (
-        <Avatar3D
-          frase={estado.transcripcion.texto}
-          secuencia={estado.secuencia}
-        />
-      )}
+      <section
+        className="sala-tarjeta sala-resultado"
+        aria-labelledby="titulo-avatar-sala"
+      >
+        <h2 id="titulo-avatar-sala">
+          <Icono nombre="chat" /> Avatar de señas
+        </h2>
+        {estado.fase === 'traducida' ? (
+          <Avatar3D
+            frase={estado.transcripcion.texto}
+            secuencia={estado.secuencia}
+          />
+        ) : (
+          <div className="sala-espera">
+            <img src="/marca/gato-tarjetas.png" alt="" />
+            <h3>Esperando traducción</h3>
+            <p>Graba y confirma tu mensaje para ver las señas disponibles.</p>
+          </div>
+        )}
+      </section>
     </div>
   );
 }

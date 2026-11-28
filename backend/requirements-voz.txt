@@ -1,0 +1,4 @@
+# Complemento para ejecutar el transcriptor local.
+faster-whisper==1.2.1
+# faster-whisper 1.2.1 pasa metadata_errors a av.open.
+av==15.1.0

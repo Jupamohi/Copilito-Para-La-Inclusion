@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { Link } from 'react-router';
-import { AvisoPrivacidad } from '../../../components/AvisoPrivacidad';
 import { textos } from '../../../i18n/textos';
 import { adaptarManos } from '../../../lib/mediapipe/adaptarManos';
 import { dibujarManos } from '../../../lib/mediapipe/dibujarManos';
@@ -8,6 +7,7 @@ import type { CapturaManos } from '../../../lib/mediapipe/protocolo';
 import type { DetectedHand } from '../../../lib/vector';
 import { AvisoCamara } from '../../dispositivos/AvisoCamara';
 import { camaraVisible, useCamara } from '../../dispositivos/useCamara';
+import { IconoConversacion as Icono } from '../IconoConversacion';
 import { permitePredecir } from './maquina';
 import { useTurnoSena } from './useTurnoSena';
 
@@ -80,68 +80,103 @@ export function TurnoSena({
 
   return (
     <>
-      <AvisoPrivacidad />
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-        <section className="space-y-4" aria-labelledby="titulo-captura">
-          <h2 className="text-xl font-semibold" id="titulo-captura">
-            {contenido.captura}
+      <p className="sala-privacidad">
+        <Icono nombre="candado" /> {textos.privacidadManos}
+      </p>
+      <div className="sala-paneles">
+        <section
+          className="sala-tarjeta sala-captura"
+          aria-labelledby="titulo-captura"
+        >
+          <h2 id="titulo-captura">
+            <Icono nombre="camara" /> {contenido.captura}
           </h2>
-          <p>{contenido.instrucciones}</p>
-          <div
-            className="relative overflow-hidden rounded-lg"
-            hidden={!visible}
-          >
-            <video
-              ref={video}
-              autoPlay
-              playsInline
-              muted
-              className="vista-camara block"
-              aria-label={textos.dispositivos.vistaPrevia}
-            />
-            <canvas
-              ref={lienzo}
-              aria-hidden="true"
-              className="superposicion-manos"
-            />
+          <div className="sala-video">
+            <div className="sala-video-directo" hidden={!visible}>
+              <video
+                ref={video}
+                autoPlay
+                playsInline
+                muted
+                className="vista-camara block"
+                aria-label={textos.dispositivos.vistaPrevia}
+              />
+              <canvas
+                ref={lienzo}
+                aria-hidden="true"
+                className="superposicion-manos"
+              />
+            </div>
+            {!visible && <Icono nombre="camara" />}
+            <div className="sala-aviso-camara">
+              <AvisoCamara camara={camara} />
+            </div>
           </div>
-          <AvisoCamara camara={camara} />
-          {falloCamara && (
+          <p className="sala-instrucciones">{contenido.instrucciones}</p>
+          <div className="sala-controles">
             <button
               type="button"
-              className="boton boton-secundario"
-              onClick={() => {
-                ultima.current = null;
-                abrir(camara.fase === 'sinCamara' ? null : seleccion || null);
-              }}
+              className="boton"
+              ref={botonReconocer}
+              disabled={!puedeReconocer}
+              onClick={iniciarPrediccion}
             >
-              {textos.dispositivos.reintentar}
+              <Icono nombre="reproducir" />
+              {estado.fase === 'prediciendo'
+                ? contenido.analizando
+                : estado.fase === 'error'
+                  ? textos.dispositivos.reintentar
+                  : contenido.reconocer}
             </button>
-          )}
-          <Link className="block w-fit" to="/preparacion">
-            {contenido.volverPreparacion}
-          </Link>
+            {falloCamara && (
+              <button
+                type="button"
+                className="boton boton-secundario"
+                onClick={() => {
+                  ultima.current = null;
+                  abrir(camara.fase === 'sinCamara' ? null : seleccion || null);
+                }}
+              >
+                <Icono nombre="reintentar" /> {textos.dispositivos.reintentar}
+              </button>
+            )}
+            {visible && (
+              <span className="sala-insignia">
+                <Icono nombre="camara" /> Cámara activa
+              </span>
+            )}
+            {camara.fase === 'evaluada' && camara.luzSuficiente && (
+              <span className="sala-insignia">
+                <Icono nombre="luz" /> Buena iluminación
+              </span>
+            )}
+          </div>
+          <Link to="/preparacion">{contenido.volverPreparacion}</Link>
         </section>
         <section
-          className="space-y-4 rounded-xl border border-borde bg-fondo p-4"
+          className="sala-tarjeta sala-resultado"
           aria-labelledby="titulo-resultado"
         >
-          <h2 className="text-xl font-semibold" id="titulo-resultado">
-            {contenido.resultado}
+          <h2 id="titulo-resultado">
+            <Icono nombre="brillo" /> {contenido.resultado}
           </h2>
-          <button
-            type="button"
-            className="boton"
-            ref={botonReconocer}
-            disabled={!puedeReconocer}
-            onClick={iniciarPrediccion}
-          >
-            {estado.fase === 'prediciendo'
-              ? contenido.analizando
-              : estado.fase === 'error'
-                ? textos.dispositivos.reintentar
-                : contenido.reconocer}
-          </button>
+          {!resultado && estado.fase === 'lista' && (
+            <div className="sala-espera">
+              <Icono nombre="mano" />
+              <h3>Esperando reconocimiento</h3>
+              <p>
+                Mantén las manos visibles y selecciona «{contenido.reconocer}».
+              </p>
+            </div>
+          )}
+          {!resultado && (
+            <dl>
+              <dt>{contenido.glosa}</dt>
+              <dd>—</dd>
+              <dt>{contenido.texto}</dt>
+              <dd>—</dd>
+            </dl>
+          )}
           <p
             role="status"
             aria-atomic="true"

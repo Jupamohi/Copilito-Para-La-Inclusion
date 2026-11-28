@@ -56,3 +56,9 @@ main.contenedor:has(.preparar){max-width:none;padding:clamp(16px,2.5vw,38px) 4% 
   .pasos-dispositivo li:first-child svg,.pasos-dispositivo li:last-child svg,.pasos-dispositivo li[aria-current] svg {width:23px;height:23px}
   .pasos-dispositivo li:first-child svg {padding:4px}
 }.paneles-dispositivo .iniciar-conversacion {width:100%;margin-top:16px;justify-content:center;gap:10px;border-radius:32px}
+.progreso-mano>div {display:flex;align-items:center;gap:.6rem;margin-block:.35rem}
+.progreso-mano progress {flex:1;min-width:0;height:.65rem;border:0;border-radius:1rem;overflow:hidden;background:#dce8e1;color:#087548;accent-color:#087548}
+.progreso-mano progress::-webkit-progress-bar {background:#dce8e1}
+.progreso-mano progress::-webkit-progress-value {background:#087548}
+.progreso-mano progress::-moz-progress-bar {background:#087548}
+.progreso-mano strong {font-variant-numeric:tabular-nums;color:#10573d}

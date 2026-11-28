@@ -1,0 +1,102 @@
+main.contenedor:has(.cf) {
+  max-width: none;
+  padding: 0;
+  background: radial-gradient(ellipse at top, #e4f2eb, transparent 90%), var(--color-fondo);
+}
+.cf {
+  display: grid;
+  gap: clamp(16px, 2vw, 26px);
+  padding-block: clamp(16px, 2vw, 30px) 12px;
+  color: #102c31;
+}
+.cf h1, .cf h2 {
+  font-family: Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+.cf h1 { font-size: clamp(2.15rem, 3.7vw, 3.5rem); margin-block: .2em; }
+.cf h2 { font-size: clamp(1.6rem, 2.65vw, 2.5rem); margin-bottom: .55em; text-align: center; }
+.cf h3 { font-size: 1.12rem; font-weight: 750; line-height: 1.2; }
+.cf p { line-height: 1.45; }
+.cf-panel {
+  border: 1px solid #d1e4dc;
+  border-radius: 23px;
+  padding: clamp(14px, 1.8vw, 24px);
+  background: linear-gradient(145deg, #fff, #f5f8f5);
+}
+.cf-hero {
+  display: grid;
+  grid-template-columns: 1.12fr 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: clamp(20px, 3vw, 42px);
+  border-radius: 35px;
+  box-shadow: 0 10px 27px #1b654515;
+}
+.cf-hero img { width: 100%; }
+.cf-hero .accion { margin-top: 1em; }
+.cf-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  padding: .35em .75em;
+  border-radius: 24px;
+  background: linear-gradient(120deg, #e4f7ec, #c7ead7);
+  color: #084832;
+  font-weight: 750;
+}
+.cf-icono { display: inline-block; width: 1.55em; height: 1.55em; flex: none; color: inherit; }
+.cf-modalidades, .cf-tecnica { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.cf-modalidad { display: grid; grid-template-columns: minmax(80px, .74fr) minmax(0, 1.26fr); align-items: center; gap: 14px; }
+.cf-modalidad img { width: min(100%, 185px); justify-self: center; }
+.cf-modalidad p { margin-top: .6em; }
+.cf-recorrido { grid-column: 1 / -1; display: flex; justify-content: space-evenly; gap: 8px; }
+.cf-recorrido li { position: relative; display: grid; justify-items: center; text-align: center; gap: 4px; font-size: .83rem; }
+.cf-recorrido li:not(:last-child)::after { content: '→'; position: absolute; left: calc(100% + 4px); top: 5px; color: #0a6545; font-size: 1rem; }
+.cf-recorrido .cf-icono, .cf-consejos .cf-icono {
+  box-sizing: content-box;
+  padding: 8px;
+  background: #d7f1e2;
+  color: #0a6545;
+  border-radius: 50%;
+}
+.cf-tecnica { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+.cf-tecnica h2 { text-align: left; font-size: clamp(1.5rem, 2.3vw, 2.1rem); }
+.cf-deteccion { display: grid; grid-template-columns: 1fr minmax(95px, 24%); gap: 12px; align-items: center; }
+.cf-deteccion img, .cf-captura { border-radius: 13px; width: 100%; }
+.cf-tecnica figure { margin-top: 12px; }
+.cf-tecnica figcaption { margin-top: 4px; font-size: .88rem; }
+.cf-privacidad { display: flex; gap: 8px; align-items: flex-start; background: #dff2e7; border-radius: 12px; padding: 9px; margin-top: 10px; color: #12503b; }
+.cf-tecnologias, .cf-pasos, .cf-consejos { display: grid; gap: 12px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cf-tecnologias { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cf-tecnologias li { display: grid; justify-items: center; align-content: center; min-height: 108px; background: white; border: 1px solid #c7e0d5; border-radius: 15px; text-align: center; padding: 10px 6px; font-size: .9rem; }
+.cf-tecnologias strong { font-size: 1.05rem; }
+.cf-tecnologias .cf-icono, .cf-pasos .cf-icono { color: #0f7752; width: 33px; height: 33px; }
+.cf-pasos li { position: relative; text-align: center; }
+.cf-numero { position: absolute; inset: 8px auto auto 8px; background: #0a6843; color: white; border-radius: 50%; width: 1.75rem; line-height: 1.75rem; font-weight: 750; }
+.cf-consejos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cf-consejos li { display: flex; align-items: center; gap: 10px; }
+.cf-consejos li + li { border-left: 1px solid #d1e4dc; padding-left: 12px; }
+.cf-aviso { display: flex; gap: 12px; padding: 12px 18px; align-items: center; background: #fff6de; color: #713308; border: 1px solid #efd6a0; border-radius: 19px; }
+.cf-final { position: relative; isolation: isolate; overflow: hidden; text-align: center; background: linear-gradient(155deg,#146141,#094733); color: white; padding: 20px 20px 78px; border-radius: 24px; }
+.cf-final .accion { background: white; color: #094733; }
+.cf-final .accion:hover { background: #dbf2e4; }
+.cf-final img { position: absolute; z-index: -1; width: clamp(62px, 11%, 120px); bottom: 29px; left: 4%; }
+.cf-ondas { position: absolute; z-index: -1; width: 100%; height: 55px; inset: auto 0 0; }
+@media (max-width: 850px) {
+  .cf-consejos { grid-template-columns: 1fr; }
+  .cf-consejos li + li { border: 0; padding-left: 0; }
+}
+@media (max-width: 700px) {
+  .cf-hero, .cf-modalidades, .cf-tecnica { grid-template-columns: 1fr; }
+  .cf-hero img { max-width: 410px; justify-self: center; }
+  .cf-pasos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 380px) {
+  .cf-modalidad { grid-template-columns: 1fr; }
+  .cf-modalidad img { width: 105px; }
+  .cf-recorrido li:not(:last-child)::after { content: none; }
+}
+

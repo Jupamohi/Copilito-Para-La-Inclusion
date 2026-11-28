@@ -9,9 +9,11 @@ type Falla =
   | 'sinCamara'
   | 'camaraNoDisponible'
   | 'detectorNoDisponible';
+const lecturasNecesarias = 8;
+
 export type EstadoCamara =
   | { fase: 'solicitando' | 'calibrando' | Falla }
-  | { fase: 'evaluada'; manos: 0 | 1 | 2; luzSuficiente: boolean };
+  | { fase: 'evaluada'; manos: 0 | 1 | 2; luzSuficiente: boolean; lecturas: number };
 
 function clasificarError(error: unknown): Falla {
   if (error instanceof DOMException) {
@@ -145,13 +147,14 @@ export function useCamara(
             const manos = countHands(
               landmarks.map((puntos) => ({ landmarks: puntos })),
             );
-            setEstado((anterior) =>
-              anterior.fase === 'evaluada' &&
-              anterior.manos === manos &&
-              anterior.luzSuficiente === luzSuficiente
-                ? anterior
-                : { fase: 'evaluada', manos, luzSuficiente },
-            );
+            setEstado((anterior) => {
+              const previa = anterior.fase === 'evaluada' ? anterior.lecturas : 0;
+              let lecturas = previa;
+              if (previa < lecturasNecesarias) lecturas = manos && luzSuficiente ? previa + 1 : 0;
+              if (anterior.fase === 'evaluada' && anterior.manos === manos &&
+                  anterior.luzSuficiente === luzSuficiente && anterior.lecturas === lecturas) return anterior;
+              return { fase: 'evaluada', manos, luzSuficiente, lecturas };
+            });
             alCapturar?.(captura, elemento);
           },
           () => fallar('detectorNoDisponible'),
@@ -184,5 +187,6 @@ export function useCamara(
     solicitud.dispositivo ??
     dispositivos[0]?.deviceId ??
     '';
-  return { video, estado, dispositivos, seleccion, abrir, nombreCamara, microfonoPrevisto };
+  const progresoMano = estado.fase === 'evaluada' ? Math.round(100 * estado.lecturas / lecturasNecesarias) : 0;
+  return { video, estado, progresoMano, dispositivos, seleccion, abrir, nombreCamara, microfonoPrevisto };
 }

@@ -1,6 +1,6 @@
 import { EnlacePrivacidadAcceso } from './EnlacePrivacidadAcceso';
 import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import '../styles/portada.css';
 
 export function Marca() {
@@ -12,7 +12,7 @@ export function Cabecera() {
   const ocultarProbar = /^\/(consentimiento|preparacion|conversacion)\/*$/i.test(pathname);
   return <header className="barra"><div className="ancho fila">
     <Marca />
-    <nav aria-label="Principal"><Link to="/">Inicio</Link><Link to="/#funciones">Cómo funciona</Link><Link to="/#nosotros">Nosotros</Link><Link to="/#accesibilidad">Accesibilidad</Link></nav>
+    <nav aria-label="Principal"><Link to="/">Inicio</Link><NavLink to="/como-funciona">Cómo funciona</NavLink><NavLink to="/nosotros">Nosotros</NavLink><NavLink to="/privacidad">Privacidad</NavLink></nav>
     {!ocultarProbar && <Link className="accion" to="/consentimiento">Probar <span aria-hidden="true">→</span></Link>}
   </div></header>;
 }
@@ -30,7 +30,7 @@ export function Pie() {
       </svg>
     </div><div className="ancho">
     <div className="pie-columnas"><div><Marca /><p>Comunicación sin barreras</p></div>
-    <nav aria-label="Enlaces del pie"><strong>Explorar</strong><Link to="/">Inicio</Link><Link to="/#funciones">Cómo funciona</Link><Link to="/consentimiento">Traductor</Link></nav>
+    <nav aria-label="Enlaces del pie"><strong>Explorar</strong><Link to="/">Inicio</Link><Link to="/como-funciona">Cómo funciona</Link><Link to="/consentimiento">Traductor</Link></nav>
     <nav aria-label="Recursos del pie"><strong>Privacidad y acceso</strong><Link to="/consentimiento">Información de consentimiento</Link><EnlacePrivacidadAcceso tipo="retirar">Retirar mi autorización</EnlacePrivacidadAcceso><EnlacePrivacidadAcceso tipo="administrador">Área administrativa</EnlacePrivacidadAcceso></nav></div>
     <small>© Copiloto · Cali, Colombia</small>
   </div></footer>;
@@ -69,7 +69,7 @@ export function Portada() {
     <img src="/marca/manos.png" alt="Dos manos con los puntos de seguimiento de sus articulaciones." /></section>
     <ul className="banda"><li><IconoPortada nombre="texto" />Señas a texto y voz</li><li><IconoPortada nombre="voz" />Voz a señas</li><li><IconoPortada nombre="grupo" />Conversación por turnos</li></ul>
     <section className="nosotros" id="nosotros" tabIndex={-1}><img src="/marca/aprendizaje.png" alt="Una niña practica señas con una adulta." />
-    <div><span className="etiqueta">Sobre Copiloto</span><h2>Más que un traductor</h2><p>Dos personas pueden compartir una conversación. Una se expresa con las manos y la otra con la voz. El texto en pantalla permite seguir cada turno.</p><Link className="accion" to="/#funciones">Conocer más →</Link></div>
+    <div><span className="etiqueta">Sobre Copiloto</span><h2>Más que un traductor</h2><p>Dos personas pueden compartir una conversación. Una se expresa con las manos y la otra con la voz. El texto en pantalla permite seguir cada turno.</p><Link className="accion" to="/nosotros">Conocer más →</Link></div>
     <aside id="accesibilidad" tabIndex={-1}><strong>Inclusión educativa</strong><p>Participación en el aula.</p><strong>Accesibilidad</strong><p>Mensajes visuales y sonoros.</p><strong>Apoyo en la conversación</strong><p>Traducción durante cada turno.</p></aside></section>
     <section id="funciones" tabIndex={-1}><h2>Funciones destacadas</h2><p>Herramientas para una comunicación inclusiva, sencilla y en tiempo real.</p><div className="tarjetas">{funciones.map(([icono,titulo,detalle]) => <article key={titulo}><IconoPortada nombre={icono} /><h3>{titulo}</h3><p>{detalle}</p><Link className="flecha" aria-label={`Probar: ${titulo}`} to="/consentimiento">→</Link></article>)}</div></section>
   </div>;

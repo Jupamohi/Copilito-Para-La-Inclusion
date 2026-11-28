@@ -150,7 +150,7 @@ it('valida las diez respuestas y confirma el SUS conservando el orden de las res
   ).toBeTruthy();
   const [url, solicitud] = fetcher.mock.calls[0];
   expect(url).toBe('/api/v1/sus');
-  expect(JSON.parse(String(solicitud?.body))).toEqual({ respuestas });
+  expect(JSON.parse(String(solicitud?.body))).toEqual({ respuestas, session_id: sesion.session_id });
 });
 
 it('exige el consentimiento explícito para revocar, muestra la constancia y deshabilita la preparación', async () => {

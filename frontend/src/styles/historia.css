@@ -1,0 +1,57 @@
+main.contenedor:has(.historia) {
+  max-width: none;
+  padding: clamp(14px, 2vw, 32px) 3% 12px;
+  background: radial-gradient(ellipse at top, #e4f2e9, transparent 70%), var(--color-fondo);
+}
+.barra nav a[aria-current="page"] { background: #ddf1e4; border-radius: 2rem; padding: .35em .8em; font-weight: 700; }
+.historia {
+  max-width: 1180px;
+  margin: auto;
+  padding: clamp(20px, 3vw, 46px);
+  background: #fdfbf8;
+  border-radius: clamp(20px, 3vw, 44px);
+  box-shadow: 0 16px 52px #1d503719;
+  color: #142e29;
+}
+.historia h1, .historia h2 { font-family: Georgia, serif; font-weight: 700; line-height: 1.06; letter-spacing: -.035em; text-wrap: balance; }
+.historia h1 { font-size: clamp(2.4rem, 4.4vw, 4rem); margin: .22em 0; }
+.historia h2 { font-size: clamp(1.8rem, 3vw, 2.65rem); margin: 0 0 .5em; text-align: center; }
+.historia h3 { font-size: 1.18rem; font-weight: 750; line-height: 1.2; margin: 0 0 .35em; }
+.historia p { margin: 0; line-height: 1.5; }
+.historia > section { padding-block: clamp(18px, 2vw, 30px); border-top: 1px solid #d6e1da; }
+.hist-hero, .hist-par, .hist-limites { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(14px, 2vw, 28px); }
+.hist-hero { align-items: center; padding-bottom: 22px; }
+.hist-hero img, .hist-mascota img { width: 100%; }
+.hist-hero .accion, .hist-cta .accion { margin-top: 1em; }
+.hist-tag { display: inline-block; border-radius: 2em; padding: .2em .85em; color: #124933; background: #def2e4; font-weight: 650; font-size: .9rem; }
+.hist-intro { text-align: center; padding-bottom: 1em; }
+.hist-ficha, .hist-final > section { padding: clamp(16px, 2vw, 26px); border: 1px solid #cddbd3; border-radius: 22px; }
+.hist-ficha { display: flex; align-items: center; gap: 16px; background: linear-gradient(155deg, white, #f3f8f2); }
+.hist-avatar, .hist-icono { flex: none; display: grid; place-items: center; border-radius: 50%; background: #dcf2e3; color: #126543; }
+.hist-avatar { width: clamp(56px, 7vw, 92px); aspect-ratio: 1; font: bold 1.8rem Georgia, serif; background: radial-gradient(at top left,#edf8ef,#b5ddc5); }
+.hist-tag + p { margin-top: .4em; }
+.hist-icono { width: 50px; height: 50px; }
+.hist-icono svg { width: 58%; }
+.historia > .hist-cali { background: #e4f2e7; border: 0; border-radius: 24px; padding: clamp(18px,2.5vw,32px); }
+.hist-mascota { align-items: center; margin-bottom: 20px; }
+.hist-mascota h2, .hist-final h2 { text-align: left; }
+.hist-cali figure { overflow: hidden; border-radius: 16px; background: #fff; margin: 0; }
+.hist-cali figure img { width: 100%; aspect-ratio: 2.15; object-fit: cover; object-position: center 40%; }
+.hist-cali figcaption { padding: 12px 16px 18px; }
+.hist-cali strong, .hist-final strong { display: block; color: #104b36; }
+.hist-limites { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+.hist-limites .hist-ficha { align-items: flex-start; padding: 16px; gap: 10px; }
+.hist-limites .hist-icono { width: 36px; height: 36px; }
+.hist-final ol { list-style: none; counter-reset: etapas; }
+.hist-final li { position: relative; padding: 0 0 12px 42px; counter-increment: etapas; }
+.hist-final li::before { content: counter(etapas); position: absolute; left: 0; background: #126541; color: white; border-radius: 50%; width: 30px; line-height: 30px; text-align: center; }
+.hist-final li:not(:last-child)::after { content: ''; position: absolute; left: 14px; top: 30px; bottom: 0; border-left: 1px solid #8ab99e; }
+.hist-final .hist-cta { position: relative; overflow: hidden; padding: clamp(24px,4vw,50px) clamp(22px,3vw,42px) 75px; color: white; background: linear-gradient(150deg,#286e53,#0c4234); align-content: center; }
+.hist-cta .accion { background: white; color: #0a4833; }
+.hist-cta svg { position: absolute; inset: auto 0 0; width: 100%; height: 60px; pointer-events: none; }
+@media(max-width: 950px) { .hist-limites { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width: 680px) {
+  .hist-hero, .hist-par, .hist-limites { grid-template-columns: 1fr; }
+  .hist-hero img, .hist-mascota img { max-width: 340px; justify-self: center; }
+  .hist-cali figure img { aspect-ratio: 1.6; }
+}

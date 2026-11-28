@@ -23,6 +23,8 @@ export function crearClienteHttp({
 }: Opciones = {}): Api {
   const base = baseUrl.trim().replace(/\/+$/, '') || '/api/v1';
 
+  const envios = new WeakMap<object, string>();
+
   async function solicitar<T>(
     ruta: string,
     { metodo = 'GET', datos, formulario, token, signal, texto }: Peticion = {},
@@ -58,7 +60,6 @@ export function crearClienteHttp({
         alExpirarToken?.(token);
         throw new ErrorApi('sesionAdmin', estado);
       }
-      // TODO(supuesto): confirmar con FastAPI la respuesta para un identificador desconocido.
       if (
         estado === 404 &&
         ruta.startsWith('/consents/') &&
@@ -67,17 +68,17 @@ export function crearClienteHttp({
         throw new ErrorApi('consentimientoNoEncontrado', estado);
       }
       if (ruta === '/samples' && estado === 403) {
-        // TODO(supuesto): confirmar el código estructurado para falta de consentimiento.
         const error = await respuesta.json().catch(() => null);
         if (error?.detail?.code === 'CONSENT_REQUIRED') {
           throw new ErrorApi('muestraSinConsentimiento', estado);
         }
       }
+      if (estado === 503 && ruta === '/predict') throw new ErrorApi('clasificadorNoDisponible', estado);
+      if (estado === 503 && ruta === '/stt') throw new ErrorApi('transcriptorNoDisponible', estado);
       throw new ErrorApi('servidor', estado);
     }
 
     try {
-      // TODO(supuesto): confirmar formatos de respuesta y campos con backend.
       return (texto ? await respuesta.text() : await respuesta.json()) as T;
     } catch (error) {
       if (signal?.aborted) throw error;
@@ -94,7 +95,7 @@ export function crearClienteHttp({
       solicitar(`/consents/${encodeURIComponent(id)}/revoke`, {
         metodo: 'POST',
       }),
-    iniciarSesion: () => solicitar('/sessions', { metodo: 'POST' }),
+    iniciarSesion: (idParticipante) => solicitar('/sessions', { metodo: 'POST', datos: { id_participante: idParticipante } }),
     finalizarSesion: (id) =>
       solicitar(`${sesion(id)}/end`, { metodo: 'PATCH' }),
     async predecir({ session_id, vector }, signal) {
@@ -107,7 +108,6 @@ export function crearClienteHttp({
     },
     transcribir(audio, signal) {
       const formulario = new FormData();
-      // TODO(supuesto): confirmar el campo multipart y los formatos que admite STT.
       const extensiones: Record<string, string> = {
         'audio/webm': 'webm',
         'audio/ogg': 'ogg',
@@ -126,15 +126,19 @@ export function crearClienteHttp({
     },
     traducir: (texto, signal) =>
       solicitar('/translate', { metodo: 'POST', datos: { texto }, signal }),
-    registrarIntervencion: (id, datos) =>
-      solicitar(`${sesion(id)}/interventions`, { metodo: 'POST', datos }),
+    registrarIntervencion(id, datos) {
+      const clave = envios.get(datos) ?? crypto.randomUUID();
+      envios.set(datos, clave);
+      return solicitar(`${sesion(id)}/interventions`, {
+        metodo: 'POST', datos: { ...datos, clave_envio: clave },
+      });
+    },
     exportarSesion: (id) => solicitar(`${sesion(id)}/export`, { texto: true }),
     iniciarSesionAdmin: (datos) =>
       solicitar('/auth/login', { metodo: 'POST', datos }),
     listarSenas: (token) => solicitar('/signs', { token }),
     async cargarMuestra(token, { id_sena, id_participante, vector }) {
       validarVector(vector);
-      // TODO(supuesto): confirmar esquema de carga de muestras, limitado a datos numéricos.
       return solicitar('/samples', {
         metodo: 'POST',
         token,
@@ -144,11 +148,11 @@ export function crearClienteHttp({
     consultarModelo: (token) => solicitar('/model', { token }),
     guardarModelo: (token, datos) =>
       solicitar('/model', { metodo: 'PUT', token, datos }),
-    async enviarSus(respuestas) {
+    async enviarSus(respuestas, sesionId) {
       validarSus(respuestas);
       return solicitar('/sus', {
         metodo: 'POST',
-        datos: { respuestas: [...respuestas] },
+        datos: { session_id: sesionId, respuestas: [...respuestas] },
       });
     },
   };

@@ -289,6 +289,9 @@ export const textos = {
     cancelar: 'Cancelar edición',
   },
   api: {
+    susSinSesion: 'Finalice una sesión antes de enviar el cuestionario.',
+    clasificadorNoDisponible: 'El servicio de predicción no está disponible. Revise el clasificador de la sesión.',
+    transcriptorNoDisponible: 'El servicio de transcripción de voz no está disponible.',
     conexion:
       'Se perdió la conexión. Su conversación sigue guardada. Pulse Reintentar.',
     credenciales:

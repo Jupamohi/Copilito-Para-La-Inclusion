@@ -17,13 +17,13 @@ it('selecciona el adaptador con VITE_USE_MOCK y respeta la URL configurada', asy
   try {
     vi.stubEnv('VITE_API_BASE_URL', 'https://api.example.test/api/v1');
     vi.stubEnv('VITE_USE_MOCK', 'true');
-    await expect(crearApi(vi.fn()).iniciarSesion()).resolves.toMatchObject({
+    await expect(crearApi(vi.fn()).iniciarSesion('participante-prueba')).resolves.toMatchObject({
       session_id: 'sesion-1',
     });
     expect(fetcher).not.toHaveBeenCalled();
 
     vi.stubEnv('VITE_USE_MOCK', 'false');
-    await expect(crearApi(vi.fn()).iniciarSesion()).resolves.toMatchObject({
+    await expect(crearApi(vi.fn()).iniciarSesion('participante-prueba')).resolves.toMatchObject({
       session_id: 'real',
     });
     expect(fetcher.mock.calls[0][0]).toBe(
@@ -115,7 +115,7 @@ it('distingue errores de acceso, token vencido y conexión', async () => {
     new Headers(fetcher.mock.calls[1][1]?.headers).get('Authorization'),
   ).toBe('Bearer vencido');
   expect(alExpirarToken).toHaveBeenCalledExactlyOnceWith('vencido');
-  await expect(api.iniciarSesion()).rejects.toMatchObject({
+  await expect(api.iniciarSesion("participante-prueba")).rejects.toMatchObject({
     codigo: 'conexion',
   });
 });
@@ -157,7 +157,7 @@ it('simula sesión, ambas ramas de predicción, STT, traducción, exportación y
     .mockReturnValueOnce(0.01)
     .mockReturnValueOnce(0.9);
   const api = crearMock({ aleatorio });
-  const { session_id } = await api.iniciarSesion();
+  const { session_id } = await api.iniciarSesion("participante-prueba");
   await expect(api.predecir({ session_id, vector })).resolves.toMatchObject({
     seña: 'GRACIAS',
     aceptada: false,
@@ -204,8 +204,8 @@ it('simula sesión, ambas ramas de predicción, STT, traducción, exportación y
   await expect(api.exportarSesion(session_id)).resolves.toBe(
     `oyente: ${texto}`,
   );
-  await expect(api.enviarSus(respuestas)).resolves.toEqual({ puntaje: 50 });
-  await expect(api.enviarSus([3])).rejects.toMatchObject({
+  await expect(api.enviarSus(respuestas, session_id)).resolves.toEqual({ puntaje: 50 });
+  await expect(api.enviarSus([3], session_id)).rejects.toMatchObject({
     codigo: 'susIncompleto',
   });
 });

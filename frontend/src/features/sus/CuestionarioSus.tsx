@@ -5,6 +5,7 @@ import type { RespuestaSus } from '../../api/tipos';
 import { useEstado } from '../../app/estado';
 import { MarcoPantalla } from '../../components/MarcoPantalla';
 import { textos } from '../../i18n/textos';
+import { ErrorApi } from '../../api/errores';
 import { useSolicitud } from '../../lib/useSolicitud';
 
 const contenido = textos.cuestionario;
@@ -54,7 +55,8 @@ export function CuestionarioSus() {
       };
       dispatch({ ...envioActual, fase: 'enviando' });
       try {
-        await api.enviarSus(datos);
+        if (!estado.sesion) throw new ErrorApi('susSinSesion');
+        await api.enviarSus(datos, estado.sesion.session_id);
         dispatch({ ...envioActual, fase: 'enviado' });
       } catch (error) {
         dispatch({ ...envioActual, fase: 'pendiente' });

@@ -1,11 +1,8 @@
 export const LONGITUD_VECTOR = 126; // TODO(supuesto): coordinar el cambio de 63 a 126 con la CNN.
 export const UMBRAL_INICIAL = 0.8;
-
-// TODO(supuesto): validar nombres de campos, unidades y formas de respuesta con FastAPI.
 export type Consentimiento = { alcance: string; version_formato: string };
 export type Sesion = { session_id: string; inicio: string };
 export type SolicitudPrediccion = { session_id: string; vector: number[] };
-// TODO(supuesto): confirmar si «seña» es la glosa y si «texto» viene por separado.
 export type Prediccion = {
   seña: string;
   confianza: number;
@@ -56,7 +53,7 @@ export interface Api {
   revocarConsentimiento(
     id: string,
   ): Promise<{ constancia: string; muestras_eliminadas: number }>;
-  iniciarSesion(): Promise<Sesion>;
+  iniciarSesion(idParticipante: string): Promise<Sesion>;
   finalizarSesion(id: string): Promise<{ duracion_ms: number }>;
   predecir(
     datos: SolicitudPrediccion,
@@ -74,5 +71,5 @@ export interface Api {
   cargarMuestra(token: string, datos: Muestra): Promise<{ id: string }>;
   consultarModelo(token: string): Promise<Modelo>;
   guardarModelo(token: string, datos: Modelo): Promise<Modelo>;
-  enviarSus(respuestas: readonly RespuestaSus[]): Promise<{ puntaje: number }>;
+  enviarSus(respuestas: readonly RespuestaSus[], sesionId: string): Promise<{ puntaje: number }>;
 }

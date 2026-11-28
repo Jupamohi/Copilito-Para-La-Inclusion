@@ -1,5 +1,8 @@
 import { Cabecera, Pie, Portada } from '../components/Portada';
 import { Link, Navigate, Outlet, Route, Routes, useLocation } from 'react-router';
+import { Privacidad } from '../components/Privacidad';
+import { ComoFunciona } from '../components/ComoFunciona';
+import { Nosotros } from '../components/Nosotros';
 import { MarcoPantalla } from '../components/MarcoPantalla';
 import { AccesoAdmin } from '../features/admin/AccesoAdmin';
 import { AreaAdmin } from '../features/admin/AreaAdmin';
@@ -67,6 +70,9 @@ export function AppRoutes({
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Portada />} />
+        <Route path="nosotros" element={<Nosotros />} />
+        <Route path="como-funciona" element={<ComoFunciona />} />
+        <Route path="privacidad" element={<Privacidad />} />
         <Route path="consentimiento" element={<Bienvenida />} />
         <Route element={<RequiereConsentimiento />}>
           <Route element={<RequiereSesionSinCerrar />}>

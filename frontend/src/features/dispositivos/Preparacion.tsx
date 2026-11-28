@@ -25,7 +25,7 @@ export function Preparacion() {
   const navigate = useNavigate();
   const {
     video,
-    estado: camara,
+    estado: camara, progresoMano,
     dispositivos, nombreCamara, microfonoPrevisto,
     seleccion,
     abrir,
@@ -33,11 +33,12 @@ export function Preparacion() {
   const { cargando, error, ejecutar } = useSolicitud();
   const evaluada = camara.fase === 'evaluada';
   const mostrarVideo = camaraVisible(camara);
-  const puedeIniciar = evaluada && camara.luzSuficiente && camara.manos > 0;
+  const puedeIniciar = progresoMano === 100;
   const falloCamara = !mostrarVideo && camara.fase !== 'solicitando';
 
   function iniciarSesion() {
-    if (!puedeIniciar) return;
+    const participante = estado.participante;
+    if (!puedeIniciar || !participante) return;
     if (estado.sesion) {
       dispatch({
         type: 'sesion',
@@ -48,7 +49,7 @@ export function Preparacion() {
       return;
     }
     void ejecutar(
-      () => api.iniciarSesion(),
+      () => api.iniciarSesion(participante),
       (sesion) => {
         dispatch({ type: 'sesion', sesion, camaraId: seleccion || null });
         void navigate('/conversacion');
@@ -97,9 +98,13 @@ export function Preparacion() {
         <dl className="comprobaciones">
           <div className={falloCamara ? 'fallo' : ''}><dt><Icono tipo="camara" />Cámara</dt><dd>{mostrarVideo ? (nombreCamara || dispositivos.find((d) => d.deviceId === seleccion)?.label || 'Activa · nombre no disponible') : camara.fase === 'denegada' ? 'Permiso bloqueado' : falloCamara ? 'Vista no disponible' : 'Esperando permiso'}</dd></div>
           <div><dt><Icono tipo="microfono" />Micrófono</dt><dd>{microfonoPrevisto || 'Micrófono predeterminado del dispositivo'}<br />Se solicitará en el turno de voz</dd></div>
-          <div><dt><Icono tipo="manos" />Detección de manos</dt><dd>{evaluada ? (camara.manos ? 'Manos visibles' : 'Buscando manos') : camara.fase === 'detectorNoDisponible' ? 'Detector no disponible' : mostrarVideo ? 'Preparando detector' : 'Esperando cámara'}</dd></div>
+          <div><dt><Icono tipo="manos" />Detección de manos</dt><dd>{evaluada ? (camara.manos ? 'Manos visibles' : (puedeIniciar ? 'Comprobación completada' : 'Buscando manos')) : camara.fase === 'detectorNoDisponible' ? 'Detector no disponible' : mostrarVideo ? 'Preparando detector' : 'Esperando cámara'}</dd>
+            <dd className="progreso-mano">
+              <div><progress aria-label="Detección estable de la mano" max={100} value={progresoMano} /><strong>{progresoMano}%</strong></div>
+              <small>{puedeIniciar ? 'Detección completa. Ya puedes continuar.' : 'Mantén una mano visible y bien iluminada hasta llegar al 100%.'}</small>
+            </dd></div>
         </dl>
-        <div className="mt-3"><AvisoCamara camara={camara} /></div>
+        <div className="mt-3"><>{puedeIniciar ? <p className="aviso" role="status">Cámara lista. Puedes bajar la mano y continuar.</p> : <AvisoCamara camara={camara} />}</></div>
         <button
           type="button"
           className="boton iniciar-conversacion"
